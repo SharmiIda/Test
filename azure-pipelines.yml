@@ -1,0 +1,19 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool: TestAgent
+  vmImage: ubuntu-latest
+
+steps: 
+- task: Maven@4 
+displayName: 'Maven Build and Regression Test' 
+inputs: 
+mavenPomFile: 'pom.xml'  # Ensure the correct path to your pom.xml 
+goals: 'clean test' 
+publishJUnitResults: true  # Publish JUnit test results 
+testResultsFiles: '**/target/surefire-reports/TEST-*.xml' 
